@@ -18,17 +18,23 @@ def find_sensitive_data(filepath, encoding, patterns):
                     matches.append((line_number, line.strip()))
     return matches
 
-def process_file(filepath, encoding, patterns):
-    print(f"Processing file: {filepath}")
+def process_file(filepath, encoding, patterns, output_file=None):
+    output = f"Processing file: {filepath}"
+    print(output)
     matches = find_sensitive_data(filepath, encoding, patterns)
     for line_number, match in matches:
-        print(f"Possible sensitive data found on line {line_number}: {match}")
+        output = f"{output} \n Possible sensitive data found on line {line_number}: {match}"
+        print(output)
+
+        if output_file:
+            with open(output_file, 'w') as f:
+                f.write(output + '\n')
     return {"matches": matches, "line_number": line_number}
 
-def process_directory(directory, patterns, encoding='utf-8'):
+def process_directory(directory, patterns, encoding='utf-8', output_file=None):
     for root, _, files in os.walk(directory):
         for file in files:
-            process_file(os.path.join(root, file), encoding, patterns)
+            process_file(os.path.join(root, file), encoding, patterns, output_file)
 
 
 def main():
@@ -37,6 +43,7 @@ def main():
     parser.add_argument('-r', '--recursive', action='store_true', help="Recursively scan directories.")
     parser.add_argument('-e', '--encoding', type=str, default='utf-8', help="File encoding (defaults to utf-8).")
     parser.add_argument('-p', '--patterns', type=str, help="JSON file containing patterns to search for.")
+    parser.add_argument('-t', '--text', type=str, help="Generate a text file output with the specified filename.")
 
 
     args = parser.parse_args()
@@ -46,17 +53,21 @@ def main():
         r'\buser(name)?\s*=\s*.+',  # Matches simple username assignments
     ]
 
+    if args.text and not args.text.strip():
+        print("Please provide a filename for the text output.")
+        return
+
     if args.patterns:
         patterns = load_patterns(args.patterns)
 
     if os.path.isdir(args.path) and args.recursive:
-        process_directory(args.path, patterns, args.encoding)
+        process_directory(args.path, patterns, args.encoding, args.text)
 
     elif (not os.path.isdir(args.path)) and args.recursive:
         print("The specified path is not a directory")
 
     elif os.path.isfile(args.path):
-        process_file(args.path, args.encoding, patterns)
+        process_file(args.path, args.encoding, patterns, args.text)
 
     else:
         print("The specified path does not exist.")
