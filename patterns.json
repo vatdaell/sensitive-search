@@ -1,0 +1,6 @@
+{
+    "patterns": [
+      "\\bpassword\\s*=\\s*.+",
+      "\\buser(name)?\\s*=\\s*.+"
+    ]
+  }
