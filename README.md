@@ -1,6 +1,6 @@
 # 🕵️ Sensitive Search
 
-Sensitive search is a configurable cli tool to find sensitive information stored in files such as passwords and usernames that need to be stored in an environment variable or vault. Sensitive Seach will search for password, username and user by default but this is configurable 
+Sensitive search is a configurable cli tool to find sensitive information stored in files such as passwords and usernames that need to be stored in an environment variable or vault. Sensitive Seach will search for password, username and user by default but this is configurable as listed [below](#use-custom-patterns-from-a-json-file "Use Custom Patterns from a JSON File").
 
 ## Installation
 
