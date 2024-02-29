@@ -20,7 +20,7 @@ git clone https://github.com/vatdaell/sensitive-search.git
 To scan a single file for sensitive data:
 
 ```bash
-python script.py path/to/your/file.txt
+python main.py path/to/your/file.txt
 ```
 
 ### Scan a Directory Recursively
@@ -28,7 +28,7 @@ python script.py path/to/your/file.txt
 To scan an entire directory and its subdirectories for sensitive data:
 
 ```bash
-python script.py -r path/to/your/directory 
+python main.py -r path/to/your/directory 
 ```
 
 ### Specify File Encoding
@@ -36,7 +36,7 @@ python script.py -r path/to/your/directory
 If your file uses a specific encoding, you can specify it with the `-e` or `--encoding` option, the default encoding is UTF-8:
 
 ```bash
-python script.py path/to/your/file.txt -e encoding
+python main.py path/to/your/file.txt -e encoding
 ```
 
 For example, to use UTF-8 encoding:
@@ -50,7 +50,7 @@ python script.py path/to/your/file.txt -e utf-8
 To use custom patterns for scanning, specify a JSON file containing your patterns with the `-p` or `--patterns` option:
 
 ```bash
-python script.py path/to/your/file.txt -p path/to/your/patterns.json
+python main.py path/to/your/file.txt -p path/to/your/patterns.json
 ```
 
 patterns.json
@@ -70,7 +70,7 @@ patterns.json
 To generate a text file output of the scan results, use the `-t` or `--text` option followed by the desired output filename:
 
 ```bash
-python script.py path/to/your/file.txt -t output.txt
+python main.py path/to/your/file.txt -t output.txt
 ```
 
 ## Note
