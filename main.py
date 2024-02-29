@@ -21,9 +21,12 @@ def find_sensitive_data(filepath, encoding, patterns):
 def process_file(filepath, encoding, patterns, output_file=None):
     output = f"Processing file: {filepath}"
     print(output)
+    if output_file:
+        with open(output_file, 'w') as f:
+            f.write(output + '\n')
     matches = find_sensitive_data(filepath, encoding, patterns)
     for line_number, match in matches:
-        output = f"{output} \n Possible sensitive data found on line {line_number}: {match}"
+        output = f"\tPossible sensitive data found on line {line_number}: {match}"
         print(output)
 
         if output_file:
